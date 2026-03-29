@@ -6,7 +6,7 @@ import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
-import Footer from "./Components/Footer";
+import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
 
