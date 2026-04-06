@@ -12,8 +12,8 @@ const projects = [
     glow: "rgba(245,158,11,0.2)",
     border: "rgba(245,158,11,0.2)",
     features: ["Online Menu", "Contact Form", "Mobile Responsive"],
-    liveLink: "#",
-    githubLink: "#",
+    liveLink: "https://library-app-07.vercel.app/",
+    githubLink: "https://github.com/PrashantKumar-5014/Library-APP",
     status: "Live",
   },
   {
