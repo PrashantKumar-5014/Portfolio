@@ -14,25 +14,27 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Scroll to top on page refresh
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   // Navbar background on scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-
-      // Active section detection
       const sections = ["home", "about", "services", "projects", "contact"];
       sections.forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          // Detect if section is in view
           if (rect.top <= 100 && rect.bottom >= 100) {
             setActiveSection(id);
           }
         }
       });
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -50,13 +52,9 @@ const Navbar = () => {
           right: 0,
           zIndex: 1000,
           padding: scrolled ? "12px 40px" : "20px 40px",
-          background: scrolled
-            ? "rgba(10, 10, 15, 0.85)"
-            : "transparent",
+          background: scrolled ? "rgba(10, 10, 15, 0.95)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "none",
+          borderBottom: "none",
           transition: "all 0.4s ease",
           display: "flex",
           alignItems: "center",
@@ -99,7 +97,6 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * i, duration: 0.5 }}
             >
-              {/* FIXED: Re-added the <a> tag opening that was missing */}
               <a
                 href={link.href}
                 style={{
@@ -114,18 +111,15 @@ const Navbar = () => {
                   transition: "color 0.3s ease",
                   paddingBottom: "4px",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "#f1f1f1")
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#f1f1f1")}
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color =
-                    activeSection === link.href.replace("#", "")
-                      ? "#06b6d4"
-                      : "#9ca3af")
+                (e.currentTarget.style.color =
+                  activeSection === link.href.replace("#", "")
+                    ? "#06b6d4"
+                    : "#9ca3af")
                 }
               >
                 {link.label}
-                {/* Active underline */}
                 {activeSection === link.href.replace("#", "") && (
                   <motion.span
                     layoutId="activeUnderline"
@@ -135,8 +129,7 @@ const Navbar = () => {
                       left: 0,
                       right: 0,
                       height: "2px",
-                      background:
-                        "linear-gradient(90deg, #7c3aed, #06b6d4)",
+                      background: "linear-gradient(90deg, #7c3aed, #06b6d4)",
                       borderRadius: "2px",
                     }}
                   />
@@ -168,12 +161,12 @@ const Navbar = () => {
                 transition: "box-shadow 0.3s ease",
               }}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 0 35px rgba(124,58,237,0.7)")
+              (e.currentTarget.style.boxShadow =
+                "0 0 35px rgba(124,58,237,0.7)")
               }
               onMouseLeave={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 0 20px rgba(124,58,237,0.4)")
+              (e.currentTarget.style.boxShadow =
+                "0 0 20px rgba(124,58,237,0.4)")
               }
             >
               Hire Me ⚡
@@ -188,7 +181,7 @@ const Navbar = () => {
             display: "none",
             background: "none",
             border: "none",
-            cursor: "pointer", // FIXED: Changed from "none" to "pointer"
+            cursor: "pointer",
             flexDirection: "column",
             gap: "5px",
             padding: "4px",
@@ -200,11 +193,7 @@ const Navbar = () => {
               key={i}
               animate={{
                 rotate:
-                  menuOpen && i === 0
-                    ? 45
-                    : menuOpen && i === 2
-                    ? -45
-                    : 0,
+                  menuOpen && i === 0 ? 45 : menuOpen && i === 2 ? -45 : 0,
                 y: menuOpen && i === 0 ? 7 : menuOpen && i === 2 ? -7 : 0,
                 opacity: menuOpen && i === 1 ? 0 : 1,
               }}
